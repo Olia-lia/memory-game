@@ -1,13 +1,16 @@
-const openCard = (cards) => {
+import { OPEN_CARD, RESTART_GAME } from "./constants"
+
+const openCard = (card) => {
   return {
-    type: 'OPEN__CARD',
-    payload: cards
+    type: OPEN_CARD,
+    payload: card
   }
 }
 
 const restartGame = () => {
   return {
-    type: 'RESTART_GAME',
+    type: RESTART_GAME,
+    //payload: timer
   }
 }
 

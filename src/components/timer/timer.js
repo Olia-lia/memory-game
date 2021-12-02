@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import './timer.css';
 
 const Timer = (props) => {
-  const {timer} = props;
+  const {time} = props;
   
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(time.minutes);
+  const [seconds, setSeconds] = useState(time.seconds);
   
-  
+  console.log(timer)
+
     useEffect(() => {
-      console.log(timer)
-      if(timer != 0) {
-        let interval = setInterval(() => {
+      let interval = null;
+      if(timer == true) {
+        interval = setInterval(() => {
           if (seconds >= 0) {
             setSeconds(seconds => seconds + 1)
 
@@ -21,18 +22,25 @@ const Timer = (props) => {
             }
           }
         }, 1000);
-        return () => clearInterval(interval)
       }
+      else {setSeconds(0);
+        setMinutes(0)}
+        return () => clearInterval(interval)
       
     }, [seconds])
+
+ 
+useEffect(() => {
+
+})
   
   return (
     <div className="timer">
       <div className="time">
         <span className="minute">
-          {minutes < 10 ? `0${minutes}` : minutes}</span>
+          {time.minutes < 10 ? `0${time.minutes}` : time.minutes}</span>
         <span>:</span>
-        <span className="second">{seconds < 10 ? `0${seconds}` : seconds}</span>
+        <span className="second">{time.seconds < 10 ? `0${time.seconds}` : time.seconds}</span>
       </div>
     </div>
   )

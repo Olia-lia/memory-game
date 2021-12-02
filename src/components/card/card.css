@@ -45,10 +45,10 @@
 }
 
 
-.card.card--disabled {
+ .card.card--disabled {
   pointer-events: none;
 }
 
 .card.card--deleted {
   visibility: hidden;
-}
+} 
