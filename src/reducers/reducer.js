@@ -55,20 +55,14 @@ const reducer = (state = defaultState, action) => {
     switch (newState.isOpenedCards.length){
     case(0): 
       newState.isOpenedCards.push(openedCard);
-      openedCard.isOpened = true;
       newState.openedAt = state.numberOfSeconds;
-      //console.log(newState.openedAt)
       break;
     case(1):
       newState.isOpenedCards.push(openedCard);
-      openedCard.isOpened = true;
-      console.log(newState.openedAt);
-       
       break;
     default: return newState;
     }
-
-
+    
     if(newState.isOpenedCards.length === 2) {
       const [first, second] = newState.isOpenedCards;
       if (first.url === second.url) {
@@ -95,10 +89,17 @@ const reducer = (state = defaultState, action) => {
       isOpenedCards: [...state.isOpenedCards],
       numberOfSeconds: state.numberOfSeconds +1,
     };
-    console.log(newState.isOpenedCard);
-    if (newState.numberOfSeconds - newState.openedAt > 5) {
-      newState.isOpenedCards = [];
+    let {isOpenedCards, numberOfSeconds, openedAt} = newState;
+    
+    if (isOpenedCards.length === 1) {
+      if (numberOfSeconds - openedAt >= 5) 
+        newState.isOpenedCards = [];
     }
+    else if (isOpenedCards.length === 2){
+      if(numberOfSeconds - openedAt >= 2) {
+        newState.isOpenedCards = [];
+      }
+    } 
 
     return newState;
     

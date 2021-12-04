@@ -6,12 +6,14 @@ import './card.css';
 const Card = (props) => {
 
   const {card, openCard, openedCards} = props;
-
   
   let classNames = 'card';
-  let openedCard = openedCards.includes((card) => card.pk)
+  
+  const checkIsOpened = (card) => {
+    return openedCards.includes(card)
+  };
 
-  if (openedCard){
+  if (checkIsOpened(card)) {
       classNames += ' card--opened';
       classNames += ' card--disabled'
   }
