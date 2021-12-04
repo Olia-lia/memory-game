@@ -1,10 +1,9 @@
 import React from 'react';
 import Frame from '../frame/frame.js';
 import Card from '../card/card.jsx';
-import styled from 'styled-components';
 
 const Grid = (props) => {
-    const {cards, openCard} = props;
+    const {cards, openCard, openedCards} = props;
 
   return (
   <Frame rows={6} columns={6}>
@@ -12,7 +11,7 @@ const Grid = (props) => {
       <Card 
         key={card.pk}
         card={card} 
-        //checkIsOpened={checkIsOpened}
+        openedCards={openedCards}
         openCard={openCard}
         />))}
   </Frame>)

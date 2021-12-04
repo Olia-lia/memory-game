@@ -1,17 +1,27 @@
-import { OPEN_CARD, RESTART_GAME } from "./constants"
+import { OPEN_CARD, RESTART_GAME, TICK } from './constants';
 
 const openCard = (card) => {
   return {
     type: OPEN_CARD,
-    payload: card
-  }
-}
+    payload: {
+      card,
+      //openedAt: currentTime,
+    }
+  };
+};
 
 const restartGame = () => {
   return {
     type: RESTART_GAME,
     //payload: timer
-  }
-}
+  };
+};
 
-export {openCard, restartGame}
+const tick = () => {
+  return {
+    type: TICK,
+   // payload: new Date().getTime()
+  };
+};
+
+export {openCard, restartGame, tick};
