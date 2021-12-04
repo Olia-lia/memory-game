@@ -1,51 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { tick } from '../../actions';
+import React from 'react';
 import './timer.css';
 
 const Timer = (props) => {
   const {seconds} = props;
-
-
   
-//   const [minutes, setMinutes] = useState(time.minutes);
-//   const [seconds, setSeconds] = useState(time.seconds);
-  
-//     useEffect(() => {
-//       let interval = null;
-//       if(timer == true) {
-//         interval = setInterval(() => {
-//           if (seconds >= 0) {
-//             setSeconds(seconds => seconds + 1)
-
-//           if (seconds === 59) {
-//               setSeconds(0);
-//               setMinutes(minutes + 1)
-//             }
-//           }
-//         }, 1000);
-//       }
-//       else {setSeconds(0);
-//         setMinutes(0)}
-//         return () => clearInterval(interval)
-      
-//     }, [seconds])
-
- 
-// useEffect(() => {
-
-// })
-  
+  let minutes = Math.floor(seconds/60); 
+  let renderedSeconds = seconds%60; 
+        
   return (
     <div className="timer" onLoad={() => tick()}>
       <div className="time">
-        {/* <span className="minute">
-          {time.minutes < 10 ? `0${}` : time.minutes}</span> */}
+        <span className="minute">
+          {minutes < 10 ? `0${minutes}` : minutes}</span>
         <span>:</span>
-        <span className="second">{seconds < 10 ? `0${seconds}` : seconds}</span>
+        <span className="second">{
+          renderedSeconds < 10 ? `0${renderedSeconds}` : renderedSeconds}</span>
       </div>
     </div>
   )
 }
-
 
 export default Timer

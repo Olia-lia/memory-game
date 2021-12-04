@@ -1,5 +1,6 @@
 import {generatePlayCards} from '../data/data.js';
 import { OPEN_CARD, RESTART_GAME, TICK} from '../constants.js';
+
 const cardIcons = ['./icons/spaghetti.png',
   './icons/beer.png',
   './icons/chicken.png',
@@ -11,33 +12,13 @@ const cardIcons = ['./icons/spaghetti.png',
   './icons/hot-dog.png',
   './icons/banana.png'];
 
-// const startTimer = (start) => {
-//   const tick = {seconds: 0, 
-//     minutes: 0};
-//   let interval;
-
-//   if (start == true) {
-//     let interval = setInterval(() => {
-//       if (tick.seconds >= 0) {
-//         tick.seconds += 1;
-        
-//         if (tick.seconds === 59) {
-//           tick.seconds = 0;
-//           tick.minutes += 1;
-//         }
-//       }
-//     }, 1000);
-    
-//   }
-//   else(clearInterval(interval));
-// };
-
 const defaultState = {
   player: null,
   isOpenedCards: [],
   timerStart: false,
   numberOfSeconds: 0,
-  openedAt: null,
+  firstOpenedAt: null,
+  secondOpenedAt: null,
   cards: generatePlayCards(cardIcons),
 };
 
@@ -55,10 +36,11 @@ const reducer = (state = defaultState, action) => {
     switch (newState.isOpenedCards.length){
     case(0): 
       newState.isOpenedCards.push(openedCard);
-      newState.openedAt = state.numberOfSeconds;
+      newState.firstOpenedAt = state.numberOfSeconds;
       break;
     case(1):
       newState.isOpenedCards.push(openedCard);
+      newState.secondOpenedAt = state.numberOfSeconds;
       break;
     default: return newState;
     }
@@ -89,14 +71,14 @@ const reducer = (state = defaultState, action) => {
       isOpenedCards: [...state.isOpenedCards],
       numberOfSeconds: state.numberOfSeconds +1,
     };
-    let {isOpenedCards, numberOfSeconds, openedAt} = newState;
-    
+    let {isOpenedCards, numberOfSeconds, firstOpenedAt, secondOpenedAt} = newState;
+
     if (isOpenedCards.length === 1) {
-      if (numberOfSeconds - openedAt >= 5) 
+      if (numberOfSeconds - firstOpenedAt >= 5) 
         newState.isOpenedCards = [];
     }
     else if (isOpenedCards.length === 2){
-      if(numberOfSeconds - openedAt >= 2) {
+      if(numberOfSeconds - secondOpenedAt >= 2) {
         newState.isOpenedCards = [];
       }
     } 
