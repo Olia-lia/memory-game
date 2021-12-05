@@ -13,13 +13,15 @@ const cardIcons = ['./icons/spaghetti.png',
   './icons/banana.png'];
 
 const defaultState = {
-  player: null,
+  id: 0,
   isOpenedCards: [],
+  isDeletedCards: [],
   timerStart: false,
   numberOfSeconds: 0,
   firstOpenedAt: null,
   secondOpenedAt: null,
   cards: generatePlayCards(cardIcons),
+  results: null,
 };
 
 const reducer = (state = defaultState, action) => {
@@ -31,8 +33,9 @@ const reducer = (state = defaultState, action) => {
       isOpenedCards: [...state.isOpenedCards]
     }; 
     
-    let openedCard = newState.cards.find(card => card === action.payload.card);
-    
+
+    let openedCard = newState.cards.find(card => card === action.payload);
+  
     switch (newState.isOpenedCards.length){
     case(0): 
       newState.isOpenedCards.push(openedCard);
@@ -45,8 +48,9 @@ const reducer = (state = defaultState, action) => {
     default: return newState;
     }
     
-    if(newState.isOpenedCards.length === 2) {
+    if (newState.isOpenedCards.length === 2) {
       const [first, second] = newState.isOpenedCards;
+
       if (first.url === second.url) {
         newState.cards = [...newState.cards.filter(card => card.url !== first.url)];
         newState.isOpenedCards = [];
@@ -59,26 +63,32 @@ const reducer = (state = defaultState, action) => {
       ...state,
       numberOfSeconds: 0,
       isOpenedCards: [],
+      timerStart: true,
+     
       cards: generatePlayCards(cardIcons),
     };
+    
 
-  
     return newState;
 
   case TICK: 
     newState = {
       ...state,
       isOpenedCards: [...state.isOpenedCards],
-      numberOfSeconds: state.numberOfSeconds +1,
     };
+
     let {isOpenedCards, numberOfSeconds, firstOpenedAt, secondOpenedAt} = newState;
+
+    if (newState.timerStart = true) {
+      newState.numberOfSeconds = state.numberOfSeconds +=1;
+    } 
 
     if (isOpenedCards.length === 1) {
       if (numberOfSeconds - firstOpenedAt >= 5) 
         newState.isOpenedCards = [];
     }
     else if (isOpenedCards.length === 2){
-      if(numberOfSeconds - secondOpenedAt >= 2) {
+      if(numberOfSeconds - secondOpenedAt >= 1) {
         newState.isOpenedCards = [];
       }
     } 

@@ -5,7 +5,6 @@ import Grid from '../grid/grid.jsx';
 import Timer from '../timer/timer.js';
 import Input from '../input/input.js';
 import Table from '../table/table.js';
-//import store from '../../store.js';
 import {openCard, restartGame, tick} from '../../actions.js';
 
 import './app.css';
@@ -15,6 +14,7 @@ const mapStateToProps = (state) => {
     cards: state.cards,
     openedCards: state.isOpenedCards,
     seconds: state.numberOfSeconds,
+    player: state.player,
   }
 };
 
@@ -27,9 +27,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
  
-
-
-
 const App = (props) => {
   useEffect(() => {
     const timer = setTimeout(

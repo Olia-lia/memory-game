@@ -6,7 +6,7 @@ const Grid = (props) => {
     const {cards, openCard, openedCards} = props;
 
   return (
-  <Frame rows={6} columns={6}>
+  <Frame rows={4} columns={5}>
     {cards.map((card) => (
       <Card 
         key={card.pk}

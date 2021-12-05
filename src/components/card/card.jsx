@@ -2,7 +2,6 @@ import React from 'react';
 
 import './card.css';
 
-
 const Card = (props) => {
 
   const {card, openCard, openedCards} = props;
@@ -27,7 +26,7 @@ const Card = (props) => {
     <div className={classNames}
         onClick={() => openCard(card)}>
       <div className="card--inner"> 
-        <div className="card--back">{card.url}</div> 
+        <div className="card--back"><img src="./icons/whats_inside.png" width="50" height="50"/></div> 
         <div className="card--front">
           <img src={card.url} height="50" width="50"></img>
         </div>

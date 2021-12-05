@@ -29,7 +29,6 @@
 }
 
 .card--inner .card--back {
-  background-color: #000;
   color: white;
   transition: 0.5s ease-in-out all;
 }
