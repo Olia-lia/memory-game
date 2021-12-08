@@ -13,8 +13,10 @@ const mapStateToProps = (state) => {
   return {
     cards: state.cards,
     openedCards: state.isOpenedCards,
+    deletedCards: state.isDeletedCards,
     seconds: state.numberOfSeconds,
     player: state.player,
+    id: state.id,
   }
 };
 
@@ -48,10 +50,9 @@ const App = (props) => {
       <Grid 
         cards = {props.cards}
         openedCards = {props.openedCards}
-        openCard={props.openCard}/>
-      <Table
-        //rows={id}
-        />
+        openCard={props.openCard}
+        deletedCards={props.deletedCards}/>
+      {/* <Table rows={props.id}/> */}
     </div>
   );
 };

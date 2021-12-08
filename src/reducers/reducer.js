@@ -13,7 +13,7 @@ const cardIcons = ['./icons/spaghetti.png',
   './icons/banana.png'];
 
 const defaultState = {
-  id: 0,
+  id: 1,
   isOpenedCards: [],
   isDeletedCards: [],
   timerStart: false,
@@ -30,7 +30,8 @@ const reducer = (state = defaultState, action) => {
   case OPEN_CARD: 
     newState = {...state,
       cards: [...state.cards],
-      isOpenedCards: [...state.isOpenedCards]
+      isOpenedCards: [...state.isOpenedCards],
+      isDeletedCards: [...state.isDeletedCards]
     }; 
     
 
@@ -44,18 +45,15 @@ const reducer = (state = defaultState, action) => {
     case(1):
       newState.isOpenedCards.push(openedCard);
       newState.secondOpenedAt = state.numberOfSeconds;
+      const [first, second] = newState.isOpenedCards;
+
+      if (first.url === second.url) {
+        newState.isDeletedCards = [...state.isDeletedCards, first, second];
+      }
       break;
     default: return newState;
     }
     
-    if (newState.isOpenedCards.length === 2) {
-      const [first, second] = newState.isOpenedCards;
-
-      if (first.url === second.url) {
-        newState.cards = [...newState.cards.filter(card => card.url !== first.url)];
-        newState.isOpenedCards = [];
-      }
-    }
     return newState;
   
   case RESTART_GAME: 
@@ -64,7 +62,6 @@ const reducer = (state = defaultState, action) => {
       numberOfSeconds: 0,
       isOpenedCards: [],
       timerStart: true,
-     
       cards: generatePlayCards(cardIcons),
     };
     
@@ -79,9 +76,8 @@ const reducer = (state = defaultState, action) => {
 
     let {isOpenedCards, numberOfSeconds, firstOpenedAt, secondOpenedAt} = newState;
 
-    if (newState.timerStart = true) {
-      newState.numberOfSeconds = state.numberOfSeconds +=1;
-    } 
+    newState.numberOfSeconds = state.numberOfSeconds +=1;
+  
 
     if (isOpenedCards.length === 1) {
       if (numberOfSeconds - firstOpenedAt >= 5) 

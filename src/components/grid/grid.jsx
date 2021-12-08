@@ -3,7 +3,7 @@ import Frame from '../frame/frame.js';
 import Card from '../card/card.jsx';
 
 const Grid = (props) => {
-    const {cards, openCard, openedCards} = props;
+    const {cards, openCard, openedCards, deletedCards} = props;
 
   return (
   <Frame rows={4} columns={5}>
@@ -13,6 +13,7 @@ const Grid = (props) => {
         card={card} 
         openedCards={openedCards}
         openCard={openCard}
+        deletedCards={deletedCards}
         />))}
   </Frame>)
 }

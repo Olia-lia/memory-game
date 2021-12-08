@@ -3,6 +3,8 @@ import Frame from '../frame/frame.js';
 
 const Table = (props) => {
   const {name, time, rows} = props
+
+
   return (   
     <div>
       <h2>Results</h2>
